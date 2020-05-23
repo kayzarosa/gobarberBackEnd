@@ -37,14 +37,10 @@ class UpdadeProfileService {
       throw new AppError('User not found');
     }
 
-    if (user.email !== email) {
-      const userWithUpdatedEmail = await this.usersRepository.findByEmail(
-        email,
-      );
+    const userWithUpdatedEmail = await this.usersRepository.findByEmail(email);
 
-      if (userWithUpdatedEmail) {
-        throw new AppError('E-mail already in use.');
-      }
+    if (user.email !== email && userWithUpdatedEmail) {
+      throw new AppError('E-mail already in use.');
     }
 
     user.name = name;
