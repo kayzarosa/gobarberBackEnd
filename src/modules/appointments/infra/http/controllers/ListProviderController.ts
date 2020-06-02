@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import { container } from 'tsyringe';
 
 import ListProviderService from '@modules/appointments/services/ListProviderService';
+import { classToClass } from 'class-transformer';
 
 class ListProviderController {
   public async index(request: Request, response: Response): Promise<Response> {
@@ -13,7 +14,7 @@ class ListProviderController {
       user_id,
     });
 
-    return response.json(providers);
+    return response.json(classToClass(providers));
   }
 }
 
